@@ -7,6 +7,7 @@ import {
 } from "next-auth";
 import { type Adapter } from "next-auth/adapters";
 import DiscordProvider from "next-auth/providers/discord";
+import GoogleProvider from "next-auth/providers/google";
 
 import { env } from "~/env";
 import { db } from "~/server/db";
@@ -15,13 +16,13 @@ declare module "next-auth" {
   interface Session extends DefaultSession {
     user: {
       id: string;
-      selectedRestaurantId?: string;
+      restaurantId?: string;
       role?: StaffRole;
     } & DefaultSession["user"];
   }
 
   interface User {
-    selectedRestaurantId?: string;
+    restaurantId?: string;
     role?: StaffRole;
   }
 }
@@ -33,8 +34,8 @@ export const authOptions: NextAuthOptions = {
         ...session,
         user: {
           ...session.user,
-          selectedRestaurantId: user.selectedRestaurantId,
           role: user.role,
+          restaurantId: user.restaurantId,
           id: user.id,
         },
       };
@@ -45,6 +46,10 @@ export const authOptions: NextAuthOptions = {
     DiscordProvider({
       clientId: env.DISCORD_CLIENT_ID,
       clientSecret: env.DISCORD_CLIENT_SECRET,
+    }),
+    GoogleProvider({
+      clientId: env.GOOGLE_CLIENT_ID,
+      clientSecret: env.GOOGLE_CLIENT_SECRET,
     }),
   ],
 };

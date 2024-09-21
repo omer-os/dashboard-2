@@ -10,7 +10,7 @@ export default function MainLayout({
     <div className="flex h-lvh w-full overflow-hidden">
       <MainSidebar />
 
-      <div className="flex flex-col">{children}</div>
+      <div className="flex flex-1 flex-col">{children}</div>
     </div>
   );
 }

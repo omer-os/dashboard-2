@@ -10,5 +10,6 @@ export default async function Layout({
 }) {
   const session = await getServerAuthSession();
   if (!session) redirect("/api/auth/signin");
+  if (!session.user.restaurantId) redirect("/auth/onboarding");
   return <MainLayout>{children}</MainLayout>;
 }

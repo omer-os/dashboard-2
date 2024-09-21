@@ -12,6 +12,7 @@ import {
   Settings,
   LogOut,
   User,
+  Users,
 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { cn } from "~/lib/utils";
@@ -45,8 +46,9 @@ import {
 
 const sidebarItems = [
   { name: "Dashboard", href: "/", icon: LayoutDashboard },
-  { name: "Orders", href: "/orders", icon: ShoppingCart },
+  { name: "Staff", href: "/staff", icon: Users },
   { name: "Menu", href: "/menu", icon: MenuIcon },
+  { name: "Orders", href: "/orders", icon: ShoppingCart },
   { name: "Settings", href: "/settings", icon: Settings },
 ];
 
