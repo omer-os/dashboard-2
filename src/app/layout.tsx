@@ -4,6 +4,9 @@ import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 
 import { TRPCReactProvider } from "~/trpc/react";
+import SessionProvider from "~/components/providers/session-provider";
+import { ThemeProvider } from "~/components/providers/theme-provider";
+import { Toaster } from "~/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "Create T3 App",
@@ -15,9 +18,25 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${GeistSans.variable}`}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${GeistSans.variable}`}
+    >
       <body>
-        <TRPCReactProvider>{children}</TRPCReactProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <TRPCReactProvider>
+            <SessionProvider>
+              {children}
+              <Toaster />
+            </SessionProvider>
+          </TRPCReactProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
